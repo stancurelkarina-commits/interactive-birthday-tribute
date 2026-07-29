@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8d9e8" />
+  <title>A Special Birthday Surprise</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+
+  <button class="music-button" id="musicButton" type="button" aria-label="Play background music" title="Music">
+    <span id="musicIcon">♪</span>
+  </button>
+
+  <main class="app-shell">
+    <!-- Screen 1: Passcode -->
+    <section class="screen active" id="screen-passcode" aria-labelledby="passcodeTitle">
+      <div class="card passcode-card">
+        <img class="hero-gif" src="assets/gifs/secret-envelope.gif" alt="Animated envelope with a heart" />
+        <h1 id="passcodeTitle">Enter a Passcode</h1>
+        <p class="subtitle">A tiny secret is waiting for you!</p>
+
+        <div class="pin-dots" id="pinDots" aria-label="Four digit passcode">
+          <span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="keypad" aria-label="Number keypad">
+          <button type="button" data-number="1">1</button>
+          <button type="button" data-number="2">2</button>
+          <button type="button" data-number="3">3</button>
+          <button type="button" data-number="4">4</button>
+          <button type="button" data-number="5">5</button>
+          <button type="button" data-number="6">6</button>
+          <button type="button" data-number="7">7</button>
+          <button type="button" data-number="8">8</button>
+          <button type="button" data-number="9">9</button>
+          <button type="button" class="key-action" id="clearPin" aria-label="Clear passcode">C</button>
+          <button type="button" data-number="0">0</button>
+          <button type="button" class="key-action" id="deletePin" aria-label="Delete last digit">⌫</button>
+        </div>
+
+        <button class="primary-button" id="unlockButton" type="button">Unlock</button>
+        <p class="error-message" id="passcodeError" role="alert"></p>
+      </div>
+    </section>
+
+    <!-- Screen 2: Question -->
+    <section class="screen" id="screen-question" aria-labelledby="questionTitle">
+      <div class="card">
+        <h2 id="questionTitle">I made something special for you.</h2>
+        <p class="big-question">Do you want to see it?</p>
+        <img class="hero-gif" src="assets/gifs/surprise-gift.gif" alt="Animated birthday gift" />
+        <div class="button-row">
+          <button class="choice-button yes" id="showSurpriseButton" type="button">Yes</button>
+          <button class="choice-button no" id="noButton" type="button">No</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 3: No response -->
+    <section class="screen" id="screen-no" aria-labelledby="noTitle">
+      <div class="card">
+        <h2 id="noTitle">Why did you click No?! 😆</h2>
+        <img class="hero-gif" src="assets/gifs/playful-heart.gif" alt="Animated playful heart" />
+        <p class="subtitle">The surprise is too sweet to miss.</p>
+        <button class="primary-button" id="tryAgainButton" type="button">Try Again</button>
+      </div>
+    </section>
+
+    <!-- Screen 4: Birthday -->
+    <section class="screen" id="screen-birthday" aria-labelledby="birthdayTitle">
+      <div class="card">
+        <p class="eyebrow">1st August</p>
+        <h2 id="birthdayTitle" class="birthday-heading">Happy Birthday!</h2>
+        <img class="hero-gif large" src="assets/gifs/birthday-cake.gif" alt="Animated birthday cake" />
+        <p class="subtitle">A beautiful day for a truly wonderful person.</p>
+        <button class="primary-button" data-next="screen-wish-one" type="button">Click Me</button>
+      </div>
+    </section>
+
+    <!-- Screen 5: Wish one -->
+    <section class="screen" id="screen-wish-one" aria-labelledby="wishOneTitle">
+      <div class="card wish-card">
+        <p class="eyebrow">My Wish for You</p>
+        <h2 id="wishOneTitle">Happy Birthday to My Very Special Ma’am! 💖</h2>
+        <img class="small-gif" src="assets/gifs/flowers.gif" alt="Animated flowers" />
+        <p>
+          Today is all about celebrating you. Thank you for being such a wonderful,
+          kind, and inspiring person. Your guidance makes every moment brighter.
+        </p>
+        <button class="primary-button" data-next="screen-wish-two" type="button">Click Me</button>
+      </div>
+    </section>
+
+    <!-- Screen 6: Wish two -->
+    <section class="screen" id="screen-wish-two" aria-labelledby="wishTwoTitle">
+      <div class="card wish-card">
+        <p class="eyebrow">Another Little Wish</p>
+        <h2 id="wishTwoTitle">May Your Day Be Filled with Happiness ✨</h2>
+        <img class="small-gif" src="assets/gifs/sparkle-heart.gif" alt="Animated sparkling heart" />
+        <p>
+          May your birthday bring you endless smiles, peaceful moments, beautiful
+          memories, good health, and success in everything you do.
+        </p>
+        <button class="primary-button" data-next="screen-wish-three" type="button">Next Wish</button>
+      </div>
+    </section>
+
+    <!-- Screen 7: Wish three -->
+    <section class="screen" id="screen-wish-three" aria-labelledby="wishThreeTitle">
+      <div class="card wish-card">
+        <p class="eyebrow">One More Wish</p>
+        <h2 id="wishThreeTitle">You Deserve the Loveliest Year Ahead 🌷</h2>
+        <img class="small-gif" src="assets/gifs/balloons.gif" alt="Animated birthday balloons" />
+        <p>
+          May the coming year be full of wonderful achievements, warm surprises,
+          laughter, and all the happiness your heart can hold.
+        </p>
+        <button class="primary-button" data-next="screen-hug" type="button">Continue</button>
+      </div>
+    </section>
+
+    <!-- Screen 8: Virtual hug -->
+    <section class="screen" id="screen-hug" aria-labelledby="hugTitle">
+      <div class="card">
+        <h2 id="hugTitle">A Virtual Hug for You 🤗</h2>
+        <img class="hero-gif" src="assets/gifs/virtual-hug.gif" alt="Animated hearts giving a hug" />
+        <p class="big-question">Thank you for always being so lovely.</p>
+        <button class="primary-button" data-next="screen-favourite" type="button">Click Me</button>
+      </div>
+    </section>
+
+    <!-- Screen 9: Favourite Ma'am -->
+    <section class="screen" id="screen-favourite" aria-labelledby="favouriteTitle">
+      <div class="card">
+        <h2 id="favouriteTitle">Will You Always Be My Favourite Ma’am? 😊</h2>
+        <img class="hero-gif" src="assets/gifs/cute-friends.gif" alt="Animated friendly hearts" />
+        <div class="button-row">
+          <button class="choice-button yes final-choice" type="button">Absolutely!</button>
+          <button class="choice-button yes final-choice" type="button">Of Course!</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 10: Final -->
+    <section class="screen" id="screen-final" aria-labelledby="finalTitle">
+      <div class="card final-card">
+        <img class="hero-gif large" src="assets/gifs/final-celebration.gif" alt="Animated birthday celebration" />
+        <p class="eyebrow">With Love and Warm Wishes</p>
+        <h2 id="finalTitle">From Rimsha</h2>
+        <p class="final-to">To Her Lovely Ma’am 💖</p>
+        <div class="divider">✦</div>
+        <p class="final-message">
+          May this birthday be the beginning of another beautiful year filled with
+          happiness, success, and countless reasons to smile.
+        </p>
+        <p class="date-line">Happy Birthday — 1st August</p>
+        <button class="secondary-button" id="replayButton" type="button">Replay Surprise</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <audio id="backgroundMusic" loop preload="auto">
+    <source src="assets/audio/birthday-surprise.wav" type="audio/wav" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
