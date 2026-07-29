@@ -4,7 +4,7 @@ RIMSHA BIRTHDAY SURPRISE WEBSITE
 How to open:
 1. Open the project folder.
 2. Double-click index.html.
-3. Enter the secret passcode: 0108
+3. Enter the secret passcode: 0508
 
 Files:
 - index.html: Website content and all screens
@@ -15,11 +15,11 @@ Files:
 
 How to change the passcode:
 Open script.js and edit:
-const SECRET_PASSCODE = "0108";
+const SECRET_PASSCODE = "0508";
 
 How to publish online:
 Upload the complete folder to Netlify, Vercel, GitHub Pages, or any web hosting.
 Do not remove the assets folder.
 
-Birthday date: 1st August
+Birthday date: 5th August
 Final message: From Rimsha to Her Lovely Ma'am

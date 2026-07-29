@@ -1,6 +1,6 @@
 "use strict";
 
-const SECRET_PASSCODE = "0108";
+const SECRET_PASSCODE = "0508";
 const screens = [...document.querySelectorAll(".screen")];
 const pinDots = [...document.querySelectorAll("#pinDots span")];
 const passcodeCard = document.querySelector(".passcode-card");
@@ -13,6 +13,68 @@ const confettiLayer = document.getElementById("confettiLayer");
 
 let enteredPin = "";
 let musicStarted = false;
+let availableVoices = [];
+
+function loadVoices() {
+  if (!("speechSynthesis" in window)) return;
+  availableVoices = window.speechSynthesis.getVoices();
+}
+
+function chooseFemaleVoice() {
+  const preferredNames = [
+    "Microsoft Aria",
+    "Microsoft Jenny",
+    "Microsoft Zira",
+    "Google UK English Female",
+    "Google US English",
+    "Samantha",
+    "Ava",
+    "Susan",
+    "Hazel",
+    "Victoria",
+    "Karen"
+  ];
+
+  for (const preferredName of preferredNames) {
+    const match = availableVoices.find((voice) =>
+      voice.name.toLowerCase().includes(preferredName.toLowerCase())
+    );
+    if (match) return match;
+  }
+
+  return availableVoices.find((voice) =>
+    /female|woman|zira|aria|jenny|samantha|susan|hazel|victoria|karen|ava/i.test(voice.name)
+  ) || availableVoices.find((voice) => voice.lang.toLowerCase().startsWith("en"));
+}
+
+function speakBirthdayWish() {
+  if (!("speechSynthesis" in window)) return;
+
+  loadVoices();
+  window.speechSynthesis.cancel();
+
+  const wish = new SpeechSynthesisUtterance(
+    "Happy Birthday! Wishing you a beautiful day filled with love, joy, and happiness."
+  );
+  const femaleVoice = chooseFemaleVoice();
+
+  if (femaleVoice) wish.voice = femaleVoice;
+  wish.lang = femaleVoice?.lang || "en-US";
+  wish.rate = 0.88;
+  wish.pitch = 1.15;
+  wish.volume = 1;
+
+  const normalMusicVolume = 0.32;
+  if (!backgroundMusic.paused) backgroundMusic.volume = 0.13;
+
+  const restoreMusic = () => {
+    if (!backgroundMusic.paused) backgroundMusic.volume = normalMusicVolume;
+  };
+
+  wish.onend = restoreMusic;
+  wish.onerror = restoreMusic;
+  window.speechSynthesis.speak(wish);
+}
 
 function showScreen(screenId) {
   screens.forEach((screen) => {
@@ -21,6 +83,10 @@ function showScreen(screenId) {
 
   if (screenId === "screen-birthday" || screenId === "screen-final") {
     launchConfetti(screenId === "screen-final" ? 90 : 55);
+  }
+
+  if (screenId === "screen-birthday") {
+    window.setTimeout(speakBirthdayWish, 280);
   }
 }
 
@@ -71,7 +137,7 @@ function checkPasscode() {
 
 async function startMusic() {
   try {
-    backgroundMusic.volume = 0.28;
+    backgroundMusic.volume = 0.32;
     await backgroundMusic.play();
     musicStarted = true;
     musicButton.classList.add("playing");
@@ -169,5 +235,10 @@ document.addEventListener(
   },
   { once: true }
 );
+
+loadVoices();
+if ("speechSynthesis" in window) {
+  window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+}
 
 createFloatingHearts();
