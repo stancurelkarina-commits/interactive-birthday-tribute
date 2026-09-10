@@ -1,6 +1,6 @@
 "use strict";
 
-const SECRET_PASSCODE = "0508";
+const SECRET_PASSCODE = "1234";
 const screens = [...document.querySelectorAll(".screen")];
 const pinDots = [...document.querySelectorAll("#pinDots span")];
 const passcodeCard = document.querySelector(".passcode-card");
